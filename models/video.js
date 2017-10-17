@@ -11,9 +11,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING
       },
-      extension: {
+      mimetype: {
         allowNull: false,
-        type: DataTypes.STRING(5)
+        type: DataTypes.STRING(50)
       },
       size: {
         allowNull: false,

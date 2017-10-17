@@ -1,15 +1,12 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-//var multer  = require('multer');
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    app = express();
 
-/*var index = require('./routes/index');
-var users = require('./routes/users');*/
-var publicPath = path.join(__dirname, 'public');
-var app = express();
+global.publicPath = path.join(__dirname, 'public');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,16 +20,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(publicPath));
 
-//var upload = multer({ dest: path.join(publicPath, 'uploads') });
-
 // start the server
-var port = process.env.PORT || 3000;
-var env = process.env.NODE_ENV || 'production';
-
-/*app.use('/', index);
-app.use('/users', users);*/
+var port = process.env.PORT || 3000,
+    env = process.env.NODE_ENV || 'production';
 
 require('./routes')(app);
+
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
 
 app.listen(function(err) {
   if (err) {

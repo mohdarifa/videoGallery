@@ -2,7 +2,8 @@
 
 var VideoRepository = require('../repositories/video'),
     config = require('../config'),
-    multer = require('multer');
+    multer = require('multer'),
+    path = require('path');
 
 class VideoService {
 
@@ -26,10 +27,11 @@ class VideoService {
 	upload(req, res) {
 	    var storage = multer.diskStorage({
 		      destination: function (req, file, cb) {
-		        cb(null, config.UPLOADS_PATH)
+		        cb(null, path.join('public', config.UPLOADS_PATH));
 		      },
 		      filename: function (req, file, cb) {
-		        cb(null, file.fieldname + '-' + Date.now())
+		      	var extension = file.originalname.substr(file.originalname.lastIndexOf('.'))
+		        cb(null, 'video-' + Date.now() + extension);
 		      }
 		    }),
 	    	upload = multer({ storage: storage }).array('videos');
@@ -37,6 +39,7 @@ class VideoService {
 	    var uploadPromise = new Promise(function(resolve, reject) {
 	    	upload(req, res, function(err) {
 				if (err) {
+					console.log(err)
 					return reject({custom_error: 'Failed to upload videos.'});
 				}
 				return resolve(req.files);
@@ -47,19 +50,47 @@ class VideoService {
 	}
 
 	create(videoFiles) {
-		var createVideos = [];
-		videoFiles.map(function(file) {
-			var extension = file.originalname.substr(file.originalname.lastIndexOf('.') + 1);
-			createVideos.push({
+		var createVideoPromises = [],
+			newVideos = [];
+		videoFiles.map((file, index) => {
+
+			var video = {
 				filename: file.filename,
-				extension: extension,
+				mimetype: file.mimetype,
 				size: file.size
-			});
+			};
+			var promise = this.videoRepository.create(video)
+								.then(newVideo => {
+									newVideos.push(newVideo);
+									return newVideos;
+								});
+
+			createVideoPromises.push(promise);
 		});
 
-		return this.videoRepository.create(createVideos)
+		return Promise.all(createVideoPromises)
+					.then((newVideos) => {
+						return Promise.resolve(newVideos[0]);
+					})
+					.catch(function(err) {
+						return Promise.reject(err);
+					});
+	}
+
+	getVideo(videoId) {
+		return this.videoRepository.getVideoById(videoId)
+					.then(function(video) {
+						return Promise.resolve(video);
+					})
+					.catch(function(err) {
+						return Promise.reject(err);
+					});
+	}
+
+	deleteVideo(videoId) {
+		return this.videoRepository.deleteVideoById(videoId)
 					.then(function() {
-						return Promise.resolve(createVideos);
+						return Promise.resolve();
 					})
 					.catch(function(err) {
 						return Promise.reject(err);

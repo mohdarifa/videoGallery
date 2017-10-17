@@ -1,13 +1,13 @@
 <div class="col-md-6 video-preview">
 	<div class="body">
-		<a class="preview cursor-pointer" video-src="<%= config.UPLOADS_PATH+video.filename %>">
+		<a class="preview cursor-pointer" video-src="<%= config.UPLOADS_PATH+video.filename %>" video-type="<%= video.mimetype %>">
 			<img />
 			<i class="fa fa-play-circle-o"></i>
 		</a>
 		<div class="footer">
 			<span>Size: <strong><%= Math.round((video.size / 1024) / 1024) %> MB</strong></span> |
-			<a class="download-video cursor-pointer">Download</a> |
-			<a class="delete-video cursor-pointer">Delete</a>
+			<a class="download-video cursor-pointer" href="api/video/download/<%= video.id %>">Download</a> |
+			<a class="delete-video cursor-pointer" href="api/video/delete" data-id="<%= video.id %>">Delete</a>
 		</div>
 	</div>
 </div>

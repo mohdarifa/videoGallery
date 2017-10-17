@@ -2,3 +2,4 @@ sequelize.config.json
 config.json
 /node_modules
 /uploads
+/public/uploads

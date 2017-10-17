@@ -12,9 +12,9 @@ module.exports = {
               allowNull: false,
               type: Sequelize.STRING
             },
-            extension: {
+            mimetype: {
               allowNull: false,
-              type: Sequelize.STRING(5)
+              type: Sequelize.STRING(50)
             },
             size: {
               allowNull: false,

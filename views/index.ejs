@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <form id="video-upload-form" method="POST" enctype="multipart/form-data">
+                <form id="video-upload-form" method="POST" action="api/video/upload" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="video-file" class="">Select file:</label>
                         <input id="video-file" class="form-control" type="file" name="videos" multiple  required />
@@ -30,13 +30,28 @@
             </div>
             <div class="col-md-9">
                 <div id="video-list">
-                    <% if ( !videos.length ) { %>
-                        <h3 class="text-center">No videos found</h3>
-                    <% } else { 
-                        videos.map(function(video) { %>
-                          <%- include('video', {video: video, config: config}); %>
-                    <%  });
-                       } %>
+                    <% if ( videos.length ) { %>
+                        <%- include('videos', {videos: videos, config: config}); %>
+                    <% } %>
+                    <h3 id="no-videos" class="text-center <%= !videos.length ? '' : 'hide' %>">No videos found</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="video-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Playing Video</h4>
+                </div>
+                <div class="modal-body">
+                    <video id="video" width="560" height="315" controls>
+                        <source src="" type="">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
@@ -46,6 +61,7 @@
 		var API_BASE_URL = "http://"+window.location.host+"/api/";
 	</script>
     <script src="/javascripts/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="/javascripts/app.js"></script>
   </body>
 </html>

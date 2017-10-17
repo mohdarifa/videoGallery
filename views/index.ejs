@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <!-- font awesome embed code -->
+    <script src="https://use.fontawesome.com/4838ba5ed8.js"></script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <form id="video-upload-form" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="video-file" class="">Select file:</label>
+                        <input id="video-file" class="form-control" type="file" name="videos" multiple  required />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="UPLOAD" />
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <div id="video-list">
+                    <% if ( !videos.length ) { %>
+                        <h3 class="text-center">No videos found</h3>
+                    <% } else { 
+                        videos.map(function(video) { %>
+                          <%- include('video', {video: video, config: config}); %>
+                    <%  });
+                       } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+		var API_BASE_URL = "http://"+window.location.host+"/api/";
+	</script>
+    <script src="/javascripts/jquery-3.2.1.min.js"></script>
+    <script src="/javascripts/app.js"></script>
+  </body>
+</html>

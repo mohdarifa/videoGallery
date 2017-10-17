@@ -1,0 +1,36 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.cursor-pointer {
+	cursor: pointer;
+}
+.video-preview {
+	margin-bottom: 20px;
+}
+.video-preview .body {
+	border: 1px solid;
+}
+
+.video-preview .preview {
+	width: 100%;
+	display: block;
+	height: 150px;
+	background: #000;
+	position: relative;
+}
+.video-preview i {
+	position: absolute;
+	font-size: 30px;
+    color: #4318de;
+    top: 50%;
+    left: 50%;
+    margin: -12px 0 0 -15px;
+}
+.video-preview .footer {
+	padding: 10px;
+}

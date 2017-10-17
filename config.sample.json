@@ -1,3 +1,4 @@
 {
-  "UPLOADS_PATH": "uploads/"
+  "UPLOADS_PATH": "uploads/",
+  "VIDEO_POSTER_UPLOAD_PATH": "uploads/posters/"
 }

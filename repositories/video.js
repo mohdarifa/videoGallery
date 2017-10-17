@@ -11,7 +11,9 @@ class VideoRepository {
 
     getVideos() {
         return Video.findAll({
-            order: ["createdAt"]
+            order: [
+                ["createdAt", "DESC"]
+            ]
         });
     }
 

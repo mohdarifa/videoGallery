@@ -22,7 +22,7 @@ class VideoController {
     listVideos(req, res) {
         this.videoService.getVideos()
             .then(videos => {
-            	res.render('index', { title: 'Video library - Node JS', videos: videos, config: config });
+                res.render('index', { title: 'Video library - Node JS', videos: videos, config: config });
             });
     }
 

@@ -31,3 +31,6 @@ Run migrations
 ```bash
 node_modules/.bin/sequelize db:migrate
 ```
+
+System level dependecies
+* [ffmpeg](https://www.ffmpeg.org/download.html)

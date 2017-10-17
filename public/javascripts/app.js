@@ -33,7 +33,7 @@ $(document).ready(function(e) {
             type: 'DELETE',
             data: { videoId: thisEle.attr('data-id') },
             success: function(response) {
-            	thisEle.closest('.video-preview').remove();
+                thisEle.closest('.video-preview').remove();
                 alert(response.message);
                 if ( !$('.video-preview').length ) {
                     $('#no-videos').removeClass('hide');

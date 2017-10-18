@@ -4,6 +4,7 @@ var VideoRepository = require('../repositories/video'),
     config = require('../config'),
     multer = require('multer'),
     path = require('path'),
+    fs = require('fs'),
     ffmpeg = require('fluent-ffmpeg');
 
 class VideoService {
@@ -28,7 +29,12 @@ class VideoService {
     upload(req, res) {
         var storage = multer.diskStorage({
               destination: function (req, file, cb) {
-                cb(null, path.join('public', config.UPLOADS_PATH));
+                var uploadDestination = path.join('public', config.UPLOADS_PATH);
+                if (!fs.existsSync(uploadDestination)) {
+                    fs.mkdirSync(uploadDestination);
+                }
+
+                cb(null, uploadDestination);
               },
               filename: function (req, file, cb) {
                   var extension = file.originalname.substr(file.originalname.lastIndexOf('.'))

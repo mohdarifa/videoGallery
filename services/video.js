@@ -72,6 +72,9 @@ class VideoService {
                 })
                 .on('end', () => {
                     return resolve();
+                })
+                .on('error', function(err) {
+                    return resolve();
                 });
             });
             createVideoPromises.push(posterPromise);

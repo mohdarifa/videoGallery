@@ -23,7 +23,7 @@ Setup a database
 
 Create a sequelize.config.json file by copying the sequelize.config.sample.json file
 ```bash
-cp server/sequelize.config.sample.json server/sequelize.config.json
+cp sequelize.config.sample.json sequelize.config.json
 ```
 Replace the database credentials in the newly created sequelize.config.json file
 
